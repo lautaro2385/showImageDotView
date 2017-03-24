@@ -12,6 +12,8 @@ import android.widget.ImageView;
 
 import com.lautaro.showimagedotview.MainActivity;
 import com.lautaro.showimagedotview.R;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -25,6 +27,8 @@ public class ShowImageActivity extends AppCompatActivity {
     @BindView(R.id.ivImage)
     protected ImageView ivImage;
 
+    private final static String URL = "https://toolcasepruebas.000webhostapp.com/Imagenes/pruebacase.png";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,15 +37,18 @@ public class ShowImageActivity extends AppCompatActivity {
 
         ButterKnife.bind(ShowImageActivity.this);
 
-        Picasso picasso = Picasso.with(ShowImageActivity.this);
-        picasso.invalidate("https://toolcasepruebas.000webhostapp.com/Imagenes/pruebacase.png");
-        picasso.load("https://toolcasepruebas.000webhostapp.com/Imagenes/pruebacase.png").into(ivImage);
+        Picasso picasso = Picasso.with(this);
+        picasso.invalidate(URL);
+        picasso.load(URL)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
+                .into(ivImage);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
-        if(intent.getBooleanExtra("Close", false)) {
-            Picasso.with(this).invalidate("https://toolcasepruebas.000webhostapp.com/Imagenes/pruebacase.png");
+        if (intent.getBooleanExtra("Close", false)) {
+            Picasso.with(this).invalidate(URL);
             finish();
         }
     }
