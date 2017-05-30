@@ -26,6 +26,8 @@
             <intent-filter>
                 <action android:name="com.flycom.dotmatrix.hall.open" />
                 <action android:name="com.flycom.dotmatrix.hall.close" />
+                <action android:name="com.konka.smartcover.hall.close" />
+                <action android:name="com.konka.smartcover.hall.open" />
             </intent-filter>
         </receiver>
 
